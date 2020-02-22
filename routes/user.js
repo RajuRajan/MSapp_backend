@@ -2,9 +2,9 @@ const route = require('express').Router()
 const modal = require('../models') 
 // const controller = require('../controllers')
 class User{
-    constructor(usercontroller){
+    constructor(controller){
         // super()
-        this.usercontroller=usercontroller;
+        this.usercontroller=controller;
         this.routes();
     }
     getRouter(){
@@ -24,9 +24,14 @@ class User{
             }
           })   
           route.post("/signin", async (req, res) => {
-            await this.usercontroller.loginUser;
+            console.log(this.usercontroller.loginUser)
+            // const response =  await this.usercontroller.loginUser();
+            // res.json({ code: response.code, data: response.data })
+            res.send("ok")
+           
           })
     }
 }
 
-module.exports =(controller)=> new User(controller);
+module.exports =(controller)=> {return new User(controller);}
+

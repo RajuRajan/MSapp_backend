@@ -17,19 +17,45 @@ class Server {
 
   }
   init() {
-    app.listen(port, () => console.log(`Example app listening on port ${port}!`))
-    this.initRoutes();
     this.initControllers();
+    app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+   
+    this.initRoutes();
   }
   initControllers(){
-      this.userControllers=require('./controllers/user')
+      this.userControllers=require('./controllers/user.js')
   }
   initRoutes(){
 
-          const index=require('./routes/index')(this.userControllers);
-           app.use('/', index.getRouter())
-          // const user=require('./route/user')(this.userControllers);
-          // app.use( '/user', user.getRouter())
+          const user=require('./routes/user')(this.userControllers);
+          //  app.use('/user', user.getRouter())
+
+          app.post("/user/signup", (req, res) => {
+            try {
+              const { firstName,lastName,email,password,phoneNo,workKnown,captain } = req.body;
+              const responce = modal.user.create({firstName,lastName,email,password,phoneNo,workKnown,captain})
+              res.send({ res: responce, data: {}, code: 200 })
+            }
+            catch (err) {
+              res.send({ error_message: err, code: 500 })
+            }
+          }) 
+
+          app.post("/user/signin",async (req,res)=>{
+            try {
+              const { email, password } = req.body;
+              const responce = await modal.user.findOne({ where: { email: email } })
+              if (responce.password === password) {
+                res.send({ 'id': responce.id, code: 200 })
+              }
+              else {
+                res.send({ error_message:"account not found", code: 404 })
+              }
+            }
+            catch (err) {
+              res.send({ error_message: "account not found", code: 500 })
+            }
+          })
   }
 }
 const serve = new Server();
