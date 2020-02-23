@@ -72,9 +72,7 @@ console.log("....here")
 
           })
 
-          app.get("/",(req,res)=>{
-            res.send("vanthu tholada")
-          });
+          
   } 
 }
 const serve = new Server();
