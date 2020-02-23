@@ -57,7 +57,7 @@ class Server {
             }
           })
           app.post("/user/getBookings"),async(req,res)=>{
-            res.send("booking")
+            res.send("booking details")
           }
   }
 }
