@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express();
-const port = 5000;
+const port = 5001;
 const bodyParser = require('body-parser');
 var jsonParser = bodyParser.json()
 var cors = require('cors');
@@ -18,15 +18,15 @@ class Server {
   }
   init() {
     this.initControllers();
+    
     app.listen(port, () => console.log(`Example app listening on port ${port}!`))
-   
     this.initRoutes();
   }
   initControllers(){
       this.userControllers=require('./controllers/user.js')
   }
   initRoutes(){
-
+console.log("....here")
           const user=require('./routes/user')(this.userControllers);
           //  app.use('/user', user.getRouter())
 
@@ -56,9 +56,25 @@ class Server {
               res.send({ error_message: "account not found", code: 500 })
             }
           })
-          app.post("/user/getBookings"),async(req,res)=>{
-            res.send("booking details")
-          }
-  }
+          app.post("/user/getBookings",async(req,res)=>{
+            const myBooking=[{booking_id:"#123456",
+            booking_type:"Refridgerator",
+            booking_category:"pec",
+            booking_status:"Rejected",
+            appointment_ime:"1:00pm",
+            booking_time:"4:00pm",
+            captain_charge:"$35",
+            isappointment_fixed:false,
+            isrejected:true,
+            captain_name:"john",
+            captain_number:"123456789"}];
+            res.status(200).json(myBooking);
+
+          })
+
+          app.get("/",(req,res)=>{
+            res.send("vanthu tholada")
+          });
+  } 
 }
 const serve = new Server();

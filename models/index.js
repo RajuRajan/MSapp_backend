@@ -15,11 +15,11 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(config.database, config.username, config.password, config );
 }
 
-sequelize.authenticate().then(()=>{
-  console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& successsssssssssssss =======================")
-}).catch((err)=>
-console.log("$$$$$$$$$$$$$$$$$$$ errrrrrrrr..............",err)
-)
+// sequelize.authenticate().then(()=>{
+//   console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& successsssssssssssss =======================")
+// }).catch((err)=>
+// console.log("$$$$$$$$$$$$$$$$$$$ errrrrrrrr..............",err)
+// )
 
 fs
   .readdirSync(__dirname)
