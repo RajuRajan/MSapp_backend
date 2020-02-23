@@ -56,6 +56,9 @@ class Server {
               res.send({ error_message: "account not found", code: 500 })
             }
           })
+          app.post("/user/getBookings"),async(req,res)=>{
+            res.send("booking")
+          }
   }
 }
 const serve = new Server();
