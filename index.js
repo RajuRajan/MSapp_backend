@@ -30,7 +30,7 @@ class Server {
           const user=require('./routes/user')(this.userControllers);
           //  app.use('/user', user.getRouter())
 
-          app.post("/user/signup", (req, res) => {
+          app.post("/api/user/signup", (req, res) => {
             try {
               const { firstName,lastName,email,password,phoneNo,workKnown,captain } = req.body;
               const responce = modal.user.create({firstName,lastName,email,password,phoneNo,workKnown,captain})
@@ -41,7 +41,7 @@ class Server {
             }
           }) 
 
-          app.post("/user/signin",async (req,res)=>{
+          app.post("/api/user/signin",async (req,res)=>{
             try {
               const { email, password } = req.body;
               const responce = await modal.user.findOne({ where: { email: email } })
