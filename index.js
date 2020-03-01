@@ -8,6 +8,8 @@ app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const modal = require('./models')
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 app.use(bodyParser.raw());
 
@@ -56,6 +58,49 @@ class Server {
               res.send({ error_message: "account not found", code: 500 })
             }
           })
+
+
+          app.post("/api/user/bookService",async (req,res)=>{
+            try { 
+              const {  bidHour,city,pincode,address,serviceTime,subCategory,user_id ,bookingStatus,bookingId,bookingTime,phoneNo } = req.body;
+              console.log(req.body)
+              const responce = await modal.bookings.create({bidHour,city,pincode,address,subCategory ,serviceTime,userId:user_id,bookingStatus,bookingId,bookingTime,phoneNo})
+              res.send({ res: responce, data: {}, code: 200 })
+            }
+            catch (err) {
+              console.log(err)
+              res.send({ error_message: "something went wrong", code: 500 })
+            }
+          })
+
+          app.post("/api/user/getBookings",async (req,res)=>{
+            try { 
+              const { user_id} = req.body;
+              const responce = await modal.bookings.findAll({ where: { userId:user_id } })
+              res.send({  data: responce, code: 200 })
+            }
+            catch (err) {
+              console.log(err)
+              res.send({ error_message: "something went wrong", code: 500 })
+            }
+          })
+          app.post("/api/user/getBids",async (req,res)=>{
+            try { 
+              const { user_id} = req.body;
+              const responce = await modal.user.findOne({ where: { id:user_id } })
+              if(responce.workKnown){
+                const bidRes= await modal.bookings.findAll({where:{subCategory:responce.workKnown,userId:{[Op.not]:user_id}}})
+                res.send({  data: bidRes, code: 200 })
+              }
+             
+            }
+            catch (err) {
+              console.log(err)
+              res.send({ error_message: "something went wrong", code: 500 })
+            }
+          })
+
+
   }
 }
 const serve = new Server();
