@@ -8,9 +8,21 @@ class Bids {
         return new Promise(async (resolve, reject) => {
             try {
                 const { user_id } = req.body;
+                let haveBidedAlready=false;
                 const responce = await modal.user.findOne({ where: { id: user_id } })
                 if (responce.workKnown) {
-                    const bidRes = await modal.bookings.findAll({ where: { subCategory: responce.workKnown, userId: { [Op.not]: user_id } } })
+                    const bidRes = await modal.bookings.findAll({ 
+                        where: { subCategory: responce.workKnown, userId: { [Op.not]: user_id } },
+                        include:[
+                            {
+                                model:modal.bids,
+                                where:{
+                                    userId: user_id 
+                                },
+                                required:false
+                            }
+                        ]
+                     })
                     resolve({ data: bidRes, code: 200 })
                 }
 
@@ -25,7 +37,9 @@ class Bids {
     bidService(req) {
         return new Promise(async (resolve, reject) => {
             try {
-                resolve({ id: req.body.bookingId, code: 200 })
+                const {bookingId ,userId ,bidAmount}=req.body
+                const responce = modal.bids.create({ bookingId , userId ,bidAmount})
+                resolve({ id: responce, code: 200 })
 
             }
             catch (err) {

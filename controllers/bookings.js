@@ -17,11 +17,12 @@ class Bookings {
     })
   }
 
-  getBookings(req) {
+  getBookings(req)  {
     return new Promise(async (resolve, reject) => {
       try {
         const { user_id } = req.body;
-        const responce = await modal.bookings.findAll({ where: { userId: user_id } })
+        const responce = await modal.bookings.findAll({ 
+          where: { userId: user_id } })
         resolve({ data: responce, code: 200 })
       }
       catch (err) {
