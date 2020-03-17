@@ -10,7 +10,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const modal = require('./models')
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
-const cron = require('node-cron')
+const cron = require('node-cron');
+const moment = require('moment');
 
 app.use(bodyParser.raw());
 
@@ -20,7 +21,7 @@ class Server {
   }
   init() {
     this.initControllers();
-    // this.initCron();
+    this.initCron();
     this.initRoutes();
     app.listen(port, () => console.log(`Example app listening on port ${port}!`))
   }
@@ -36,8 +37,36 @@ class Server {
   }
 
   initCron() {
-    cron.schedule('* */2 * * * *', () => {
-      console.log("cron...........")
+    cron.schedule('* */1 * * * *', () => {
+      let data = [];
+      modal.bookings.findAll().then(bidRes => {
+                      data = bidRes;
+                      for (let d of data) {
+                        // if (d.dataValues.bidHour === moment().format("HH:mm")) {
+                        console.log(d.dataValues)
+                        modal.user.findOne({ where: { id: d.dataValues.userId } }).then(res =>{
+                                  let value = res.dataValues
+                                  let capatainCharge = "";
+                                  let isappoinmentFixed = true;
+                                  let isrejected = false;
+                                  let capatainName = `${value.firstName} ${value.lastName}`;
+                                  let captainNumber = value.phoneNo;
+                                  console.log("map......", d.dataValues.bookingId)
+                                  modal.bids.findOne({ where: { bookingId: d.dataValues.bookingId } }).then(resp =>{
+                                          if (resp) {
+                                            capatainCharge = resp.dataValues.bidAmount
+                                            console.log("map......", capatainCharge, isappoinmentFixed, isrejected, capatainName, captainNumber)
+
+                                            const updateBooking= modal.bookings.update({isappointmentFixed:true,where:{
+                                              bookingId:value.bookingId
+                                            }})
+                                            updateBooking.save()
+                                          }
+                                         })
+                                })
+                        // }
+                      }
+      })
     })
   }
 }
