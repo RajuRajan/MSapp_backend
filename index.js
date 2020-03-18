@@ -43,7 +43,7 @@ class Server {
     }
 
     initCron() {
-        cron.schedule('* */1 * * * *', () => {
+        cron.schedule('1 * * * * *', () => {
             let data = []
             modal.bookings.findAll().then(bidRes => {
                 data = bidRes
