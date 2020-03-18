@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     bookingId:DataTypes.INTEGER,
     bookingStatus: DataTypes.STRING,
     bookingTime: DataTypes.STRING,
-    captainCharge: DataTypes.INTEGER,
+    captainCharge: DataTypes.STRING,
     isappointmentFixed: DataTypes.BOOLEAN,
     isrejected: DataTypes.BOOLEAN,
     captainName: DataTypes.STRING,
