@@ -12,6 +12,7 @@ const Sequelize = require('sequelize')
 const Op = Sequelize.Op
 const cron = require('node-cron')
 const moment = require('moment')
+var logger = require('logger').createLogger('development.log');
 
 app.use(bodyParser.raw())
 
@@ -42,12 +43,15 @@ class Server {
     }
 
     initCron() {
-        cron.schedule('1 * * * * *', () => {
+        cron.schedule('* */1 * * * *', () => {
             let data = []
             modal.bookings.findAll().then(bidRes => {
                 data = bidRes
                 for (let d of data) {
+                  logger.info("bidhours=============",d.dataValues.bidHour)
+                  logger.info("Currenthours=============", moment().format("HH:mm"))
                     if (d.dataValues.bidHour === moment().format("HH:mm")) {
+                      logger.info("in@@@@@@@@@@@@@@@@@")
                     modal.bids
                         .findOne({
                             where: { bookingId: d.dataValues.bookingId },
@@ -59,6 +63,7 @@ class Server {
                                         where: { id: resp.dataValues.userId },
                                     })
                                     .then(res => {
+                                      logger.info("in@@@@@@@ res",res.dataValues)
                                         let value = res.dataValues
                                         let captainCharge = ''
                                         let isappointmentFixed = true
@@ -73,7 +78,10 @@ class Server {
                                                       bookingId:d.dataValues.bookingId
                                                     }
                                                   };
-                                                  modal.bookings.update(values, selector)
+                                                  modal.bookings.update(values, selector).catch(
+                                                    err=>
+                                                    logger.info("booking update error %%%%%%%%%%%%%%%%",err)
+                                                  )
                                                   .then(function(res) {console.log(res)});
                                     })
                             }
