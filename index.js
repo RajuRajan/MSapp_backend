@@ -49,8 +49,8 @@ class Server {
                 data = bidRes
                 for (let d of data) {
                   logger.info("bidhours=============",d.dataValues.bidHour)
-                  logger.info("Currenthours=============", moment().format("HH:mm"))
-                    if (d.dataValues.bidHour === moment().format("HH:mm")) {
+                  logger.info("Currenthours=============", moment().utc().format("HH:mm"))
+                    if (d.dataValues.bidHour === moment().utc().format("HH:mm")) {
                       logger.info("in@@@@@@@@@@@@@@@@@")
                     modal.bids
                         .findOne({
