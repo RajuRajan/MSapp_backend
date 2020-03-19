@@ -1,1 +1,4 @@
 /node_modules
+/.prettierrrc.js
+/developement.log
+/seeders

@@ -1,6 +1,24 @@
 module.exports = {
-    trailingComma: "es5",
-    tabWidth: 4,
-    semi: false,
-    singleQuote: true
-  };
+  "arrowParens": "avoid",
+  "bracketSpacing": false,
+  "endOfLine": "lf",
+  "htmlWhitespaceSensitivity": "css",
+  "jsxBracketSameLine": false,
+  "printWidth": 80,
+  "proseWrap": "preserve",
+  "requirePragma": false,
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 3,
+  "trailingComma": "all",
+  "useTabs": false,
+  "vueIndentScriptAndStyle": true,
+  "overrides": [
+    {
+      "files": "*.json",
+      "options": {
+        "printWidth": 200
+      }
+    }
+  ]
+}

@@ -17,6 +17,7 @@
     "nexmo": "^2.6.0",
     "node-cron": "^2.0.3",
     "pg": "^7.18.1",
+    "sentiment": "^5.0.2",
     "sequelize-cli": "^5.5.1"
   },
   "devDependencies": {
