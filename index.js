@@ -82,74 +82,36 @@ class Server {
          let data = [];
          modal.bookings.findAll().then(bidRes => {
             data = bidRes;
-            for (let d of data) {
-               logger.info('bidhours=============', d.dataValues.bidHour);
-               logger.info(
-                  'Currenthours=============',
-                  moment()
-                     .utc()
-                     .format('HH:mm'),
-               );
-               if (
-                  d.dataValues.bidHour ===
-                  moment()
-                     .utc()
-                     .format('HH:mm')
-               ) {
-                  logger.info('in@@@@@@@@@@@@@@@@@');
-                  modal.bids
-                     .findOne({
-                        where: {
-                           bookingId: d.dataValues.bookingId,
-                        },
-                        order: [['score', 'DESC']],
-                     })
-                     .then(resp => {
-                        if (resp) {
-                           modal.user
-                              .findOne({
-                                 where: {
-                                    id: resp.dataValues.userId,
-                                 },
-                              })
-                              .then(res => {
-                                 logger.info('in@@@@@@@ res', res.dataValues);
-                                 let value = res.dataValues;
-                                 let captainCharge = '';
-                                 let isappointmentFixed = true;
-                                 let isrejected = false;
-                                 let captainName = `${value.firstName} ${value.lastName}`;
-                                 let captainNumber = value.phoneNo;
-                                 captainCharge = resp.dataValues.bidAmount;
+             for (let d of data) {
+               if ( d.dataValues.bidHour === moment().utc().format('HH:mm')) 
+                  {
+                     logger.info('in@@@@@@@@@@@@@@@@@');
+                     modal.bids.findOne({ where: { bookingId : d.dataValues.bookingId } , order: [['score', 'DESC']]}).then(resp =>{
+                           if (resp) {
+                                 modal.user.findOne({ where : { id : resp.dataValues.userId }}).then(res => {
+                                       logger.info('in@@@@@@@ res', res.dataValues);
+                                       let value = res.dataValues;
+                                       let captainCharge = '';
+                                       let isappointmentFixed = true;
+                                       let isrejected = false;
+                                       let captainName = `${value.firstName} ${value.lastName}`;
+                                       let captainNumber = value.phoneNo;
+                                       captainCharge = resp.dataValues.bidAmount;
 
-                                 var values = {
-                                    captainCharge,
-                                    isappointmentFixed,
-                                    isrejected,
-                                    captainName,
-                                    captainNumber,
-                                 };
-                                 var selector = {
-                                    where: {
-                                       bookingId: d.dataValues.bookingId,
-                                    },
-                                 };
-                                 modal.bookings
-                                    .update(values, selector)
-                                    .catch(err =>
-                                       logger.info(
-                                          'booking update error %%%%%%%%%%%%%%%%',
-                                          err,
-                                       ),
-                                    )
-                                    .then(function(res) {
-                                    //    console.log(res);
+                                       var values = { captainCharge , isappointmentFixed , isrejected, captainName , captainNumber };
+                                       var selector = {
+                                          where: {
+                                             bookingId: d.dataValues.bookingId,
+                                          },
+                                       };
+                                       modal.bookings.update(values, selector).catch(err =>
+                                             logger.info('booking update error %%%%%%%%%%%%%%%%',err),
+                                          ).then(function(res) {});
                                     });
-                              });
-                        }
-                     });
-               }
-            }
+                           }
+                       });
+                    }
+                }
          });
       });
 
