@@ -115,14 +115,14 @@ class Server {
          });
       });
 
-      cron.schedule('* 1 * * * *', () => {
-        var fs = require('fs');
-        fs.unlink('development.log', function (err) {
-            if (err) throw err;
-            console.log('File deleted!');
-        }); 
-       this.initCron();
-      })
+      // cron.schedule('* 1 * * * *', () => {
+      //   var fs = require('fs');
+      //   fs.unlink('development.log', function (err) {
+      //       if (err) throw err;
+      //       console.log('File deleted!');
+      //   }); 
+      //  this.initCron();
+      // })
    }
 }
 const serve = new Server();

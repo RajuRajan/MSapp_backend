@@ -31,7 +31,7 @@ class Bids {
                 }
             } catch (err) {
                 console.log(err)
-                resolve({ error_message: 'something went wrong', code: 500 })
+                resolve({ err : err , error_message: 'something went wrong', code: 500 })
             }
         })
     }
