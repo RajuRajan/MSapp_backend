@@ -41,6 +41,11 @@ class User {
       res.json(data)
     })
 
+    route.post("/getMyBids", async (req, res) => {
+      const data = await this.bidController.getMyBids(req);
+      res.json(data)
+    })
+
     route.post("/bidService", async (req, res) => {
       const data = await this.bidController.bidService(req);
       res.json(data)

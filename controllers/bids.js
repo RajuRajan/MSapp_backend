@@ -7,7 +7,6 @@ class Bids {
         return new Promise(async (resolve, reject) => {
             try {
                 const { user_id } = req.body
-                let haveBidedAlready = false
                 const responce = await modal.user.findOne({
                     where: { id: user_id },
                 })
@@ -28,6 +27,35 @@ class Bids {
                         ],
                     })
                     resolve({ data: bidRes, code: 200 })
+                }
+            } catch (err) {
+                console.log(err)
+                resolve({ err : err , error_message: 'something went wrong', code: 500 })
+            }
+        })
+    }
+
+    getMyBids(req) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const { user_id } = req.body
+                const responce = await modal.user.findOne({
+                    where: { id: user_id },
+                })
+                if (responce.firstName && responce.lastName) {
+                    console.log("responce first name",responce.firstName)
+                    const mybidRes = await modal.bookings.findAll({
+                        where: {
+                            captainName : `${responce.firstName} ${responce.lastName}`,
+                        },
+                        include: [
+                            {
+                                model: modal.user,
+                                required: false
+                            },
+                        ],
+                    })   
+                    resolve({ data: mybidRes, code: 200 })
                 }
             } catch (err) {
                 console.log(err)

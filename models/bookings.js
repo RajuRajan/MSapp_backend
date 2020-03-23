@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     bookings.hasMany(models.bids,{
       sourceKey:'bookingId'
     })
+    bookings.belongsTo(models.user)
   };
   return bookings;
 };
