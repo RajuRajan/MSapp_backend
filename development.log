@@ -1,0 +1,74 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+info [Sat Sep 19 2020 13:01:01 GMT+0530 (India Standard Time)]  in@@@@@@@@@@@@@@@@@
+
+
+info [Sat Sep 19 2020 13:21:01 GMT+0530 (India Standard Time)]  in@@@@@@@@@@@@@@@@@
+info [Sat Sep 19 2020 13:21:01 GMT+0530 (India Standard Time)]  in@@@@@@@ res {
+  id: 2,
+  firstName: 'Electrician',
+  lastName: '1',
+  email: 'electrician1@gmail.com',
+  phoneNo: '8056421669',
+  password: '123',
+  workKnown: [ 'Electricians' ],
+  captain: true,
+  createdAt: 2020-09-19T06:46:01.826Z,
+  updatedAt: 2020-09-19T06:46:01.826Z
+}
+
+
+info [Tue Sep 22 2020 08:33:01 GMT+0530 (India Standard Time)]  in@@@@@@@@@@@@@@@@@
+info [Tue Sep 22 2020 08:33:01 GMT+0530 (India Standard Time)]  in@@@@@@@ res {
+  id: 2,
+  firstName: 'Electrician',
+  lastName: '1',
+  email: 'electrician1@gmail.com',
+  phoneNo: '8056421669',
+  password: '123',
+  workKnown: [ 'Electricians' ],
+  captain: true,
+  createdAt: 2020-09-19T06:46:01.826Z,
+  updatedAt: 2020-09-19T06:46:01.826Z
+}
+
+info [Tue Sep 22 2020 08:53:01 GMT+0530 (India Standard Time)]  in@@@@@@@@@@@@@@@@@
+info [Tue Sep 22 2020 08:53:01 GMT+0530 (India Standard Time)]  in@@@@@@@ res {
+  id: 2,
+  firstName: 'Electrician',
+  lastName: '1',
+  email: 'electrician1@gmail.com',
+  phoneNo: '8056421669',
+  password: '123',
+  workKnown: [ 'Electricians' ],
+  captain: true,
+  createdAt: 2020-09-19T06:46:01.826Z,
+  updatedAt: 2020-09-19T06:46:01.826Z
+}
+
+
+info [Tue Sep 22 2020 10:06:01 GMT+0530 (India Standard Time)]  in@@@@@@@@@@@@@@@@@
+info [Tue Sep 22 2020 10:12:01 GMT+0530 (India Standard Time)]  in@@@@@@@@@@@@@@@@@
+info [Tue Sep 22 2020 10:12:01 GMT+0530 (India Standard Time)]  in@@@@@@@ res {
+  id: 3,
+  firstName: 'Electrician',
+  lastName: '2',
+  email: 'electrician2@gmail.com',
+  phoneNo: '72628392817',
+  password: '123',
+  workKnown: [ 'Electricians' ],
+  captain: true,
+  createdAt: 2020-09-19T06:47:11.249Z,
+  updatedAt: 2020-09-19T06:47:11.249Z
+}

@@ -7,7 +7,7 @@ module.exports = {
         'bids',
         'score',
         {
-          type: Sequelize.INTEGER
+          type: Sequelize.DECIMAL
         }
       )
       

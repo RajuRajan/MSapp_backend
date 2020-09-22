@@ -86,11 +86,10 @@ class Bids {
                     .then(feeds => {
                         for (let f of feeds) {
                             result = result + analyseWords(f.dataValues.feed)
-                            console.log('result==>', result)
+                            console.log('result==>', result, feeds.length, bidScore[bidAmount] )
                         }
                         console.log('final result==>', result / feeds.length)
-                        score =
-                            (result / feeds.length + bidScore[bidAmount]) / 2
+                        score = (result / feeds.length + bidScore[bidAmount]) / 2
                         console.log('score=======', score)
 
                         const responce = modal.bids.create({
@@ -102,6 +101,7 @@ class Bids {
                         resolve({ id: responce, code: 200 })
                     })
             } catch (err) {
+                console.log(err)
                 resolve({ error_message: 'account not found', code: 500 })
             }
         })
